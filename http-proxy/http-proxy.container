@@ -9,7 +9,7 @@ ExecStartPre=mkdir -p /var/data/http-proxy
 [Container]
 Image=docker.io/caddy:2.7-alpine
 Volume=/var/data/http-proxy:/data:Z
-Volume=/usr/custom/share/http-proxy/Caddyfile:/etc/caddy/Caddyfile:ro,Z
+Volume=/usr/custom/share/http-proxy/Caddyfile:/etc/caddy/Caddyfile:ro
 PublishPort=80:80
 PublishPort=443:443
 PublishPort=443:443/udp
