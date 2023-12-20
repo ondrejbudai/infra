@@ -9,6 +9,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '35 6 * * *'
+  push:
 
 jobs:
   build-image:
@@ -31,7 +32,7 @@ jobs:
           podman build -t ${{ github.repository }}:latest .
 
       - name: Push
-        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' }}
+        if: ${{ github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || github.event_name == 'push' }}
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | podman login ghcr.io -u $ --password-stdin
           podman push ${{ github.repository }}:$(date --iso-8601=date)
