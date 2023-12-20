@@ -1,0 +1,20 @@
+[Unit]
+Description=Reverse proxy for handling HTTP(s)
+After=basic.target main-network.service
+Requires=main-network.service
+
+[Service]
+ExecStartPre=mkdir -p /var/data/http-proxy
+
+[Container]
+Image=docker.io/caddy:2.7-alpine
+Volume=/var/data/http-proxy:/data:Z
+Volume=/usr/custom/share/http-proxy/Caddyfile:/etc/caddy/Caddyfile:ro,Z
+PublishPort=80:80
+PublishPort=443:443
+PublishPort=443:443/udp
+Network=main.network
+PodmanArgs=--pull=newer
+
+[Install]
+WantedBy=default.target
