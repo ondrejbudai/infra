@@ -1,0 +1,3 @@
+medivh.budai.cz {
+    reverse_proxy https://budai.cz
+}
